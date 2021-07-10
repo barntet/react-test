@@ -8,6 +8,7 @@ import {
   inputValueAction,
   addItemAction,
   deleteItemAction,
+  getListAction,
 } from "./store/actionCreatores";
 import axios from "axios";
 
@@ -26,12 +27,10 @@ class TodoList extends Component {
   }
 
   async componentDidMount() {
-    const a = await axios({
-      url: "http://orrz.work:8800/postData",
-      method: "POST",
-      body: { list: [1, 2, 3] },
+    const list = await axios.post("http://orrz.work:8800/postData", {
+      list: ["早上", "中午", "下午", "晚"],
     });
-    console.log(a);
+    store.dispatch(getListAction(list.data));
   }
 
   storeChange() {

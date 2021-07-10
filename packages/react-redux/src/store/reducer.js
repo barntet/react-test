@@ -13,25 +13,26 @@ const reducer = (state = defaultState, action) => {
   // 这里需要注意Reducer里面只能接受state的值，是不能修改state的值，所以声明一个新的变量，然后返回出去
 
   if (action.type === actionType.INPUT_VALUE) {
-    console.log(1);
     let newState = JSON.parse(JSON.stringify(state)); //记得要深拷贝
     newState.inputValue = action.value;
     return newState;
   }
   if (action.type === actionType.ADD_ITEM) {
-    console.log(2);
     let newState = JSON.parse(JSON.stringify(state));
     newState.list.push(newState.inputValue); // 这里要注意上面已经能实时获取inuteValue，且button这里是没有写值的，所以这里用newState.inputValue
     newState.inputValue = "";
     return newState;
   }
   if (action.type === actionType.DELETE_ITEM) {
-    console.log(3);
     let newState = JSON.parse(JSON.stringify(state));
     newState.list.splice(action.index, 1);
     return newState;
   }
-
+  if (action.type === actionType.GET_LIST) {
+    let newState = JSON.parse(JSON.stringify(state));
+    newState.list = action.data.list;
+    return newState;
+  }
   return state;
 };
 

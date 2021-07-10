@@ -13,3 +13,9 @@ export const deleteItemAction = (index) => ({
   type: actionType.DELETE_ITEM,
   index,
 });
+
+// axios getData
+export const getListAction = (data) => ({
+  type: actionType.GET_LIST,
+  data,
+});
