@@ -1,8 +1,14 @@
 // import { createStore } from "redux"; // 从redux中引入createSrote
 import { createStore, applyMiddleware, compose } from "redux"; // 从redux中引入createSrote,, 引入redux-thunk中间件，需要引入applyMiddleware ,, 还有因为需要同时使用redux dev tools 需要引入compoes
-import thunk from "redux-thunk";
+// import thunk from "redux-thunk";
+// 引入saga中间件
+import createSagaMiddleware from "redux-saga";
+import mySaga from "./saga";
 // 创建好reducers后引入index中，以参数的形式传给store
 import reducer from "./reducer";
+
+// 创建saga中间件
+const sagaMiddleware = createSagaMiddleware();
 
 // 使用compose 创造增强函数
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -10,7 +16,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   : compose;
 
 // 有了增强函数，就能串起来了，其实这里只是做了一个判断，因为它们都要放在createStore的第二个参数中
-const enhancers = composeEnhancers(applyMiddleware(thunk));
+// const enhancers = composeEnhancers(applyMiddleware(thunk));
+
+// 使用新的中间件，redux-saga
+const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 const store = createStore(
   reducer,
@@ -19,5 +28,8 @@ const store = createStore(
   // applyMiddleware(thunk), // 官网教程，现在会报错
   enhancers
 ); // 创建数据存储仓库
+
+// 使用rudadx-saga中间件
+sagaMiddleware.run(mySaga);
 
 export default store; // 暴露出去

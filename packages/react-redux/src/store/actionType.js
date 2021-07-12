@@ -3,4 +3,5 @@ export const actionType = {
   ADD_ITEM: "addItem",
   DELETE_ITEM: "deleteItem",
   GET_LIST: "getList",
+  GET_MY_LIST: "getMyList",
 };

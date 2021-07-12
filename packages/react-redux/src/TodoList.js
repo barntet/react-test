@@ -8,9 +8,10 @@ import {
   inputValueAction,
   addItemAction,
   deleteItemAction,
-  getListAction,
+  // getTodoList, // 使用redux-thunk 时用到这个
+  // getListAction, // 之前是使用
+  getMyListAction,
 } from "./store/actionCreatores";
-import axios from "axios";
 
 class TodoList extends Component {
   constructor(props) {
@@ -27,10 +28,17 @@ class TodoList extends Component {
   }
 
   async componentDidMount() {
-    const list = await axios.post("http://orrz.work:8800/postData", {
-      list: ["早上", "中午", "下午", "晚"],
-    });
-    store.dispatch(getListAction(list.data));
+    // 第一版
+    // const list = await axios.post("http://orrz.work:8800/postData", {
+    //   list: ["早上", "中午", "下午", "晚"],
+    // });
+    // 通过redux-thunk，将接口请求数据放到actionCreatores
+    // const list = getTodoList();
+    // store.dispatch(list);
+
+    // 通过redux-saga中间件处理异步加载数据
+    const action = getMyListAction();
+    store.dispatch(action);
   }
 
   storeChange() {
