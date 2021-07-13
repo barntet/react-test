@@ -21,6 +21,8 @@ const reducer = (state = defaultState, action) => {
   if (action.type === "deleteItem") {
     let newState = JSON.parse(JSON.stringify(state));
     newState.list.splice(action.index, 1);
+    console.log(action.index);
+    console.log(newState.list);
     return newState;
   }
   return state;

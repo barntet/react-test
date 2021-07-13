@@ -1,44 +1,71 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import "antd/dist/antd.css";
 import { Input, Button, List } from "antd";
-import store from "./store";
+// import store from "./store"; // 后面不需要用到
 
 // 引入react-redux的连接器 connect
 import { connect } from "react-redux";
 
-class TodoList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = store.getState();
-  }
+// class TodoList extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = store.getState();
+//   }
 
-  // inputChange(value){
-  //   this.
-  // }
+//   // inputChange(value){
+//   //   this.
+//   // }
 
-  render() {
-    return (
-      <Fragment>
-        <Input
-          placeholder="tianxie"
-          style={{ width: "250px" }}
-          value={this.props.inputValue}
-          onChange={this.props.inputChange}
-        />
-        <Button type="primary" onClick={this.props.clickBtn}>
-          添加
-        </Button>
-        <List
-          bordered
-          dataSource={this.props.list}
-          renderItem={(item, index) => (
-            <List.Item onClick={this.props.deleteItem}>{item}</List.Item>
-          )}
-        />
-      </Fragment>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <Fragment>
+//         <Input
+//           placeholder="tianxie"
+//           style={{ width: "250px" }}
+//           value={this.props.inputValue}
+//           onChange={this.props.inputChange}
+//         />
+//         <Button type="primary" onClick={this.props.clickBtn}>
+//           添加
+//         </Button>
+//         <List
+//           bordered
+//           dataSource={this.props.list}
+//           renderItem={(item, index) => (
+//             <List.Item onClick={() => this.props.deleteItem(index)}>
+//               {item}
+//             </List.Item>
+//           )}
+//         />
+//       </Fragment>
+//     );
+//   }
+// }
+
+// 优化
+const TodoList = (props) => {
+  const { inputValue, inputChange, clickBtn, deleteItem, list } = props;
+  return (
+    <Fragment>
+      <Input
+        placeholder="input value"
+        style={{ width: "200px" }}
+        value={inputValue}
+        onChange={inputChange}
+      />
+      <Button type="primary" onClick={clickBtn}>
+        添加
+      </Button>
+      <List
+        bordered
+        dataSource={list}
+        renderItem={(item, index) => (
+          <List.Item onClick={() => deleteItem(index)}>{item}</List.Item>
+        )}
+      />
+    </Fragment>
+  );
+};
 
 // export default TodoList;
 
