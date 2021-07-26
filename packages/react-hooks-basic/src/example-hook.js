@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
 
 // useState
 /* 
@@ -26,6 +32,8 @@ export default Example;
 */
 
 // useEffect
+
+/*
 function ExampleHook() {
   const [count, setCount] = useState(0);
 
@@ -33,7 +41,7 @@ function ExampleHook() {
   // 注意 ：useEffect中定义的函数的执行不会阻碍浏览器更新视图，也就是说函数是异步的，
   useEffect(() => {
     console.log(`count => ${count}`);
-  });
+  }, [setCount]);
 
   return (
     <div>
@@ -44,6 +52,60 @@ function ExampleHook() {
 }
 
 export default ExampleHook;
+
+*/
+
+// demo4 CreateContext useContext
+/*
+const countContext = createContext();
+
+function ExampleHook() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>当前计数{count}</p>
+      <button onClick={() => setCount(count + 1)}>click</button>
+      <countContext.Provider value={count}>
+        <Counter />
+      </countContext.Provider>
+    </div>
+  );
+}
+
+function Counter() {
+  const count = useContext(countContext);
+  return <h1>{count}</h1>;
+}
+
+export default ExampleHook;
+
+*/
+
+// demo5 useRecucer
+
+function ExampleHook() {
+  const [count, dispatch] = useReducer((state, action) => {
+    switch (action) {
+      case "add":
+        return state + 1;
+      case "sub":
+        return state - 1;
+      default:
+        return state;
+    }
+  }, 0);
+  return (
+    <div>
+      <p>当前计数{count}</p>
+      <button onClick={() => dispatch("add")}>+</button>
+      <button onClick={() => dispatch("sub")}>-</button>
+    </div>
+  );
+}
+
+export default ExampleHook;
+// useEffect componentWillUnmount
 
 // var bsj = {
 //   bar: function () {
